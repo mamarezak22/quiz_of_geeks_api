@@ -13,6 +13,7 @@ class User(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = ['username']
 
@@ -20,3 +21,7 @@ class User(AbstractBaseUser):
 
     def __str__(self):
         return self.username
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(upload_to = 'avatars/', default = "avatars/default_avatar.png", null = True)
