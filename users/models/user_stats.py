@@ -1,27 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth import get_user_model
 
-from .validators import PhoneNumberValidator
-from .managers import UserManager
-# Create your models here.
+User = get_user_model()
 
-phone_number_validator = PhoneNumberValidator()
-
-class User(AbstractBaseUser):
-    username = models.CharField(unique = True)
-    phone_number = models.CharField(validators=[phone_number_validator], max_length=11)
-    is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-
-
-    USERNAME_FIELD = 'phone_number'
-    REQUIRED_FIELDS = ['username']
-
-    objects = UserManager()
-
-    def __str__(self):
-        return self.username
-
-class UserProfile(models.Model):
+class UserGeneralStats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    avatar = models.ImageField(upload_to = 'avatars/', default = "avatars/default_avatar.png", null = True)
+    level = models.PositiveSmallIntegerField(default=1)
+    xp = models.PositiveIntegerField(default=0)
+    coin = models.PositiveIntegerField(default=100)
+    count_of_won_games = models.PositiveSmallIntegerField(default=0)
+    count_of_loss_games = models.PositiveSmallIntegerField(default=0)
+    count_of_tie_games = models.PositiveSmallIntegerField(default=0)
+
+class UserQuestionCategoryStat(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    category = models.ForeignKey("questions.Category",on_delete=models.PROTECT)
+    count_of_correct_answers = models.PositiveIntegerField(default=0)
+    count_of_wrong_answers = models.PositiveIntegerField(default=0)
+
