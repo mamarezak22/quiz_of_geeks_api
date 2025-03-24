@@ -12,7 +12,7 @@ class UserGeneralStats(models.Model):
     count_of_loss_games = models.PositiveSmallIntegerField(default=0)
     count_of_tie_games = models.PositiveSmallIntegerField(default=0)
 
-class UserQuestionCategoryStat(models.Model):
+class UserQuestionCategoryStats(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     category = models.ForeignKey("questions.Category",on_delete=models.PROTECT)
     count_of_correct_answers = models.PositiveIntegerField(default=0)

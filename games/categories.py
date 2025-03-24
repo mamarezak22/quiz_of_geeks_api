@@ -1,5 +1,5 @@
 game_status = (
-    ("pre-start","p"),
-    ("started","s"),
-    ("finished","f"),
+    ("p","pre-started"),
+    ("s","started"),
+    ("f","finished"),
 )

@@ -1,15 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 
-from .validators import PhoneNumberValidator
-from .managers import UserManager
+from users.managers import UserManager
+from utils.validators import PhoneNumberValidator
 # Create your models here.
 
 phone_number_validator = PhoneNumberValidator()
 
 class User(AbstractBaseUser):
     username = models.CharField(unique = True)
-    phone_number = models.CharField(validators=[phone_number_validator], max_length=11)
+    phone_number = models.CharField(validators=[phone_number_validator], max_length=11,unique=True)
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 

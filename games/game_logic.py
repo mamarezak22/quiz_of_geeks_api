@@ -16,6 +16,9 @@ def find_available_game(user:AbstractBaseUser)->GameSession|None:
                 continue
             else:
                 available_game = opened_game
+                available_game.usr2 = user
+                available_game.status = "s"
+                available_game.save()
                 return available_game
 
 def create_game(user:AbstractBaseUser)->GameSession:
@@ -32,4 +35,16 @@ def handle_start_game(user:AbstractBaseUser)->Tuple[GameSession|None,str,int]:
     game = create_game(user)
     return game,"new game created",200
 
+def is_user_turn_to_select_category(user : AbstractBaseUser,game:GameSession)->bool:
+    game_round = game.current_round
+    is_user1 = game.user1 == user
 
+    if is_user1:
+        if game_round %2==0:
+            return False
+        return True
+
+    if not is_user1:
+        if game_round %2==1:
+            return True
+        return False

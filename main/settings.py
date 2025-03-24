@@ -35,15 +35,18 @@ DJANGO_APPS = [
 
 THIRD_PARTY_PACKAGES = [
     "rest_framework",
-    "rest_framework_simple_jwt",
-    "drf-spectacular",
+    "rest_framework_simplejwt",
+    "drf_spectacular",
 ]
 
 OUR_APPS = [
     "users",
+    "questions",
+    "games",
 ]
 
-WINSTALLED_APPS = OUR_APPS + THIRD_PARTY_PACKAGES + DJANGO_APPS 
+INSTALLED_APPS = OUR_APPS + THIRD_PARTY_PACKAGES + DJANGO_APPS
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -127,6 +130,6 @@ MEDIA_ROOT = BASE_DIR/'media'
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASS" :{
-        'rest_framework_simplejwt.'
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     }
 }
