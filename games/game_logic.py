@@ -48,3 +48,5 @@ def is_user_turn_to_select_category(user : AbstractBaseUser,game:GameSession)->b
         if game_round %2==1:
             return True
         return False
+
+

@@ -1,9 +1,12 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+
+from questions.models import Category
 from .categories import  game_status
 
 User = get_user_model()
 # Create your models here.
+
 
 class GameSession(models.Model):
     user1 = models.ForeignKey(User, on_delete=models.SET_NULL, null=True,related_name='games_as_user1')
@@ -12,8 +15,12 @@ class GameSession(models.Model):
     current_round = models.PositiveSmallIntegerField(default=1)
     user1_point = models.PositiveSmallIntegerField(default = 0)
     user2_point = models.PositiveSmallIntegerField(default = 0)
+    #the categories that been asked by users to select.
+    selected_categories = models.ManyToManyField(Category,blank=True,related_name='selected_categories')
     created_at = models.DateTimeField(auto_now_add=True)
     ended_at = models.DateTimeField(null=True)
+
+
 
 
     def __str__(self):
@@ -22,9 +29,9 @@ class GameSession(models.Model):
 class GameRound(models.Model):
     game = models.ForeignKey(GameSession, on_delete=models.SET_NULL, null=True)
     round_number = models.PositiveSmallIntegerField(default = 0)
-    selected_question_category = models.ForeignKey("questions.Category", on_delete=models.PROTECT, null=True)
-    done_by_user1 = models.BooleanField(default=False)
-    done_by_user2 = models.BooleanField(default=False)
+    selected_question_category = models.ForeignKey(Category,on_delete=models.PROTECT,null=True)
+    user1_answered_questions = models.PositiveSmallIntegerField(default = 0)
+    user2_answered_questions = models.PositiveSmallIntegerField(default = 0)
 
 class GameQuestion(models.Model):
     question = models.ForeignKey("questions.Question", on_delete=models.SET_NULL, null=True)

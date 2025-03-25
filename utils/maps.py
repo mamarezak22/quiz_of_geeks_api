@@ -1,7 +1,8 @@
-from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_400_BAD_REQUEST
+from rest_framework.status import HTTP_404_NOT_FOUND, HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN
 
 status_codes = {
     200 : HTTP_200_OK,
     400 : HTTP_400_BAD_REQUEST,
+    403 : HTTP_403_FORBIDDEN,
     404 : HTTP_404_NOT_FOUND,
 }
